@@ -1,0 +1,9 @@
+episodeV:
+hive> CREATE TABLE episodeV (name STRING, line STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' TBLPROPERTIES ("skip.header.line.count"="2");
+OK
+Time taken: 0.493 seconds
+hive> LOAD DATA LOCAL INPATH '/episodeV_dialouges.txt' INTO TABLE episodeV;
+Loading data to table default.episodev
+OK
+Time taken: 1.09 seconds
+Hive> INSERT OVERWRITE LOCAL DIRECTORY '/export5' ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' SELECT name,COUNT(name) AS no_of_lines from episodeV GROUP BY name ORDER BY no_of_lines DESC;
